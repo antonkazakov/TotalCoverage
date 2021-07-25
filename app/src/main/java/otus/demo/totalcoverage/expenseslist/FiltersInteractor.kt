@@ -1,8 +1,8 @@
 package otus.demo.totalcoverage.expenseslist
 
 import otus.demo.totalcoverage.Open
-import otus.demo.totalcoverage.baseexpenses.ExpensesService
 import otus.demo.totalcoverage.baseexpenses.ExpenseResponse
+import otus.demo.totalcoverage.baseexpenses.ExpensesService
 import otus.demo.totalcoverage.expensesfilter.Filter
 import otus.demo.totalcoverage.expensesfilter.Sort
 import otus.demo.totalcoverage.utils.NeedsTesting

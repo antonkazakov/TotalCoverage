@@ -2,9 +2,9 @@ package otus.demo.totalcoverage.addexpense
 
 import io.reactivex.Single
 import otus.demo.totalcoverage.Open
-import otus.demo.totalcoverage.baseexpenses.ExpensesService
 import otus.demo.totalcoverage.baseexpenses.Category
 import otus.demo.totalcoverage.baseexpenses.Expense
+import otus.demo.totalcoverage.baseexpenses.ExpensesService
 import otus.demo.totalcoverage.expenseslist.ExpensesMapper
 import otus.demo.totalcoverage.utils.NeedsTesting
 import javax.inject.Inject

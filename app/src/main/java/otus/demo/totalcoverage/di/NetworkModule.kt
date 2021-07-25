@@ -1,13 +1,13 @@
 package otus.demo.totalcoverage.di
 
-import dagger.Component
-import dagger.Module
-import dagger.Provides
-import dagger.Reusable
+import dagger.*
 import otus.demo.totalcoverage.baseexpenses.ExpensesService
+import otus.demo.totalcoverage.baseexpenses.FakeExpensesServiceImpl
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
+import javax.inject.Qualifier
 import javax.inject.Scope
 import javax.inject.Singleton
 
@@ -23,10 +23,16 @@ interface AppComponent {
 @Module
 object NetworkModule {
 
+//    @Provides
+//    @Singleton
+//    fun provideExpensesNetworkService(retrofit: Retrofit): ExpensesService {
+//        return retrofit.create(ExpensesService::class.java)
+//    }
+
     @Provides
     @Singleton
-    fun provideExpensesService(retrofit: Retrofit): ExpensesService {
-        return retrofit.create(ExpensesService::class.java)
+    fun provideFakeExpensesNetworkService(): ExpensesService {
+        return FakeExpensesServiceImpl()
     }
 
     @Provides

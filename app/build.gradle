@@ -73,8 +73,8 @@ dependencies {
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0'
     testImplementation 'app.cash.turbine:turbine:0.5.2'
 
-    implementation 'com.google.dagger:dagger:2.37'
-    kapt 'com.google.dagger:dagger-compiler:2.37'
+    implementation 'com.google.dagger:dagger:2.38'
+    kapt 'com.google.dagger:dagger-compiler:2.38'
 }
 
 allOpen {

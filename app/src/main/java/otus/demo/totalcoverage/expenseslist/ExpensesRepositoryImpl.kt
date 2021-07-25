@@ -1,7 +1,7 @@
 package otus.demo.totalcoverage.expenseslist
 
-import otus.demo.totalcoverage.baseexpenses.ExpensesService
 import otus.demo.totalcoverage.baseexpenses.Expense
+import otus.demo.totalcoverage.baseexpenses.ExpensesService
 import otus.demo.totalcoverage.utils.NeedsTesting
 import javax.inject.Inject
 
