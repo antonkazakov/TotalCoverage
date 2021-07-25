@@ -23,7 +23,7 @@ class AddExpenseViewModel @Inject constructor(
     private val _liveData: MutableLiveData<AddExpenseResult> = MutableLiveData()
     var liveData: LiveData<AddExpenseResult> = _liveData
 
-    lateinit var disposable: Disposable
+    var disposable: Disposable? = null
 
     fun addExpense(
         title: String,
@@ -39,7 +39,7 @@ class AddExpenseViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        disposable.dispose()
+        disposable?.dispose()
     }
 }
 

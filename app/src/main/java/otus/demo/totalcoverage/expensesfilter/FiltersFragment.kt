@@ -36,12 +36,8 @@ class FiltersFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        submitButton = view.findViewById(R.id.submit_filters_button)
-        ascButton = view.findViewById(R.id.asc_button)
-        descButton = view.findViewById(R.id.desc_button)
-        dateAscButton = view.findViewById(R.id.asc_date_button)
-        dateDescButton = view.findViewById(R.id.desc_date_button)
-        clearButton = view.findViewById(R.id.clear_filters_button)
+        bindViews(view)
+
         ascButton.setOnClickListener {
             sort = Sort.ASC
         }
@@ -68,5 +64,14 @@ class FiltersFragment : BottomSheetDialogFragment() {
             )
             findNavController().navigateUp()
         }
+    }
+
+    private fun bindViews(view: View) {
+        submitButton = view.findViewById(R.id.submit_filters_button)
+        ascButton = view.findViewById(R.id.asc_button)
+        descButton = view.findViewById(R.id.desc_button)
+        dateAscButton = view.findViewById(R.id.asc_date_button)
+        dateDescButton = view.findViewById(R.id.desc_date_button)
+        clearButton = view.findViewById(R.id.clear_filters_button)
     }
 }

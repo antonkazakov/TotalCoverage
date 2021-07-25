@@ -72,7 +72,7 @@ class ExpensesFragmentTest {
         runBlocking {
             //given:
             val adapterMock = mock<ExpensesAdapter>()
-
+            val expected = ExpensesFactory.getExpenses()
             val flow = MutableStateFlow<Result>(Empty)
             whenever(expensesViewModel.stateFlow).thenReturn(flow)
 
@@ -88,10 +88,10 @@ class ExpensesFragmentTest {
             }
 
             //when:
-            flow.emit(Success(ExpensesFactory.getExpenses()))
+            flow.emit(Success(expected))
 
             //then:
-            verify(adapterMock).notifyDataSetChanged()
+            verify(adapterMock).addItems(expected)
         }
     }
 
@@ -174,7 +174,6 @@ class ExpensesFragmentTest {
             R.id.filtersFragment
         )
     }
-
 
     @Test
     fun `should add call addItem when result with EXPENSES key received`() {

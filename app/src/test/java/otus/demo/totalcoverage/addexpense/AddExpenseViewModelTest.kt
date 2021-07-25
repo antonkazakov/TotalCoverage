@@ -36,8 +36,8 @@ class AddExpenseViewModelTest {
         addExpenseViewModel
             .addExpense("dummy_title", "100", Category.BARS, "dummy_comment")
 
-//        val actual = addExpenseViewModel.liveData.value
-//        assertEquals(Success(ExpensesFactory.getExpense()), actual)
+        val actual = addExpenseViewModel.liveData.value
+        assertEquals(Success(ExpensesFactory.getExpense()), actual)
     }
 
     @Test
@@ -48,7 +48,7 @@ class AddExpenseViewModelTest {
         addExpenseViewModel
             .addExpense("dummy_title", "100", Category.BARS, "dummy_comment")
 
-//        val actual = addExpenseViewModel.liveData.value
-//        assertEquals(Error(expectedException), actual)
+        val actual = addExpenseViewModel.liveData.value
+        assertEquals(Error(expectedException), actual)
     }
 }

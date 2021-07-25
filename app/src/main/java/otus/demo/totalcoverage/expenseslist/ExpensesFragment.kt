@@ -77,9 +77,7 @@ class ExpensesFragment : Fragment() {
                 when (result) {
                     is Success -> {
                         emptyText.visibility = View.GONE
-                        adapter.items.clear()
-                        adapter.items.addAll(result.value)
-                        adapter.notifyDataSetChanged()
+                        adapter.addItems(result.value)
                     }
                     is Error -> {
                         Toast.makeText(activity, result.throwable?.message, Toast.LENGTH_LONG)

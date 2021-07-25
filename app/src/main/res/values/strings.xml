@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">TotalCoverage</string>
+    <string name="app_name">Expenses</string>
     <string name="no_expenses">No expenses :)</string>
+    <string name="asc_text">Сначала крупные покупки</string>
+    <string name="desc_text">Сначала мелкие покупки</string>
+    <string name="date_asc_text">Сначала старые покупки</string>
+    <string name="date_desc_text">Сначала новые покупки</string>
+    <string name="sumbit_filters_text">Применить</string>
+    <string name="reset_filters_button">Сбросить</string>
 </resources>

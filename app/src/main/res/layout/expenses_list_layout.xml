@@ -11,13 +11,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/no_expenses"
-        android:textColor="@color/black"
+        android:textColor="@color/secondaryTextColor"
         android:textSize="24dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_expense_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_add_24"
+        app:backgroundTint="@color/secondaryColor"
+        app:useCompatPadding="true"
         android:layout_gravity="bottom|right"
         android:theme="@style/Theme.MaterialComponents.Light" />
 
@@ -26,7 +29,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-
 
 </FrameLayout>

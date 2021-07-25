@@ -11,6 +11,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Scope
 import javax.inject.Singleton
 
+private const val URL = "http://localhost"
+
 @Singleton
 @Component(modules = [NetworkModule::class])
 interface AppComponent {
@@ -31,12 +33,9 @@ object NetworkModule {
     @Singleton
     fun provideRetrofitClient(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://37.228.117.40:2104/")
+            .baseUrl(URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 }
-
-@Scope
-annotation class SuperScope

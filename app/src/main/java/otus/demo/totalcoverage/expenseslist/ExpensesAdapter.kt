@@ -14,7 +14,13 @@ class ExpensesAdapter @Inject constructor() :
 
     val items: MutableList<Expense> = arrayListOf()
 
-    fun addItem(expense:Expense){
+    fun addItems(expenses: List<Expense>) {
+        items.clear()
+        items.addAll(expenses)
+        notifyDataSetChanged()
+    }
+
+    fun addItem(expense: Expense) {
         items.add(expense)
         notifyItemChanged(items.size)
     }

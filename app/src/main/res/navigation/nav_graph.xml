@@ -10,10 +10,16 @@
         android:label="ExpensesListFragment">
         <action
             android:id="@+id/action_expensesListFragment_to_addExpenseFragment"
-            app:destination="@id/addExpenseFragment" />
+            app:destination="@id/addExpenseFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_expensesListFragment_to_filtersFragment"
-            app:destination="@id/filtersFragment" />
+            app:destination="@id/filtersFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@id/expensesListFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <dialog
         android:id="@+id/filtersFragment"
