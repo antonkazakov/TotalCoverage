@@ -5,10 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
+import kotlinx.coroutines.test.*
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -42,7 +39,7 @@ class ExpensesViewModelTest {
     @ExperimentalTime
     @Test
     fun `should emit Success with non empty expenses list`() {
-        runBlocking {
+        runTest {
             //given:
             val expected = Expense(
                 2,
@@ -57,7 +54,7 @@ class ExpensesViewModelTest {
 
             expensesViewModel.getExpenses()
             expensesViewModel.stateFlow.test {
-                Assert.assertEquals(Success(listOf(expected)), expectItem())
+                Assert.assertEquals(Success(listOf(expected)), awaitItem())
             }
         }
     }
@@ -65,14 +62,14 @@ class ExpensesViewModelTest {
     @ExperimentalTime
     @Test
     fun `should emit instance of Empty when expenses are empty`() {
-        runBlocking {
+        runTest {
             whenever(expensesRepository.getExpenses()).thenReturn(
                 emptyList()
             )
 
             expensesViewModel.getExpenses()
             expensesViewModel.stateFlow.test {
-                Assert.assertEquals(Empty, expectItem())
+                Assert.assertEquals(Empty, awaitItem())
             }
         }
     }
@@ -80,13 +77,13 @@ class ExpensesViewModelTest {
     @ExperimentalTime
     @Test
     fun `should emit instance of Error when IOException was thrown`() {
-        runBlocking {
+        runTest {
             val expectedException = RuntimeException("Error")
             whenever(expensesRepository.getExpenses()).thenThrow(expectedException)
 
             expensesViewModel.getExpenses()
             expensesViewModel.stateFlow.test {
-                Assert.assertEquals(Error(expectedException), expectItem())
+                Assert.assertEquals(Error(expectedException), awaitItem())
             }
         }
     }

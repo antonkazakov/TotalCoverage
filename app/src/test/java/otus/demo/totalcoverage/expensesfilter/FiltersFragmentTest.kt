@@ -12,17 +12,19 @@ import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import otus.demo.totalcoverage.ContainerActivity
 import otus.demo.totalcoverage.R
 import otus.demo.totalcoverage.baseexpenses.Category
 
 @RunWith(RobolectricTestRunner::class)
+@Config(instrumentedPackages = ["androidx.loader.content"])
 class FiltersFragmentTest {
 
     @Test
     fun `should send fragment result with chosen filters and navigate up`() {
         //given:
-        val expected = Filter(listOf(Category.BARS), (0L..10L))
+        val expected = Filter(listOf(Category.BARS), (0L..2000L))
         val navController = TestNavHostController(
             ApplicationProvider.getApplicationContext()
         )
@@ -38,7 +40,7 @@ class FiltersFragmentTest {
         //then 'Filter equal to expected':
         titleScenario.onFragment { fragment ->
             fragment.parentFragmentManager.setFragmentResultListener(
-                "123", fragment
+                "FILTERED_EXPENSES", fragment
             ) { _, b ->
                 assertEquals(expected, b.get("FILTERS_KEY"))
             }

@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.hamcrest.Matchers
 import org.junit.After
@@ -29,6 +30,7 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowToast
 import otus.demo.totalcoverage.R
 import otus.demo.totalcoverage.baseexpenses.Category
@@ -38,13 +40,14 @@ import java.lang.RuntimeException
 import java.util.regex.Pattern.matches
 
 @RunWith(AndroidJUnit4::class)
+@Config(instrumentedPackages = ["androidx.loader.content"])
 class ExpensesFragmentTest {
 
     private val expensesViewModel: ExpensesViewModel = mock()
 
     @Test
     fun `should show Toast with message when Error emited`() {
-        runBlocking {
+        runTest {
             //given:
             val flow = MutableStateFlow<Result>(Empty)
             whenever(expensesViewModel.stateFlow).thenReturn(flow)
@@ -69,7 +72,7 @@ class ExpensesFragmentTest {
 
     @Test
     fun `should notify adapter when Success emited`() {
-        runBlocking {
+        runTest {
             //given:
             val adapterMock = mock<ExpensesAdapter>()
             val expected = ExpensesFactory.getExpenses()
@@ -97,7 +100,7 @@ class ExpensesFragmentTest {
 
     @Test
     fun `should show empty text when Empty emited`() {
-        runBlocking {
+        runTest {
             //given:
             val adapterMock = mock<ExpensesAdapter>()
 

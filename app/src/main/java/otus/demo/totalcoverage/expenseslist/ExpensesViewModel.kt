@@ -75,7 +75,7 @@ class ExpensesViewModelFactory @Inject constructor(
     private val ioCoroutineDispatcher: CoroutineDispatcher,
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ExpensesViewModel::class.java))
             return ExpensesViewModel(
                 filtersInteractor,

@@ -1,7 +1,7 @@
 package otus.demo.totalcoverage.expenseslist
 
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -29,7 +29,7 @@ class FiltersInteractorTest {
 
     @Before
     fun before() {
-        runBlocking {
+        runTest {
             whenever(expensesService.getExpenses()).thenReturn(
                 mutableListOf(
                     firstResponse,
@@ -42,7 +42,7 @@ class FiltersInteractorTest {
 
     @Test
     fun `should sort descending by amount`() {
-        runBlocking {
+        runTest {
             val filter = Filter(sort = Sort.DESC)
 
             val expected = listOf(
@@ -59,7 +59,7 @@ class FiltersInteractorTest {
 
     @Test
     fun `should sort by asc amount and filter bars`() {
-        runBlocking {
+        runTest {
             val filter = Filter(categories = listOf(Category.BARS), sort = Sort.ASC)
 
             val expected = listOf(

@@ -16,12 +16,15 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.*
+import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowToast
 import otus.demo.totalcoverage.R
 import otus.demo.totalcoverage.baseexpenses.Category
 import otus.demo.totalcoverage.baseexpenses.Expense
+import otus.demo.totalcoverage.expenseslist.ExpensesFragment
 
 @RunWith(AndroidJUnit4::class)
+@Config(instrumentedPackages = ["androidx.loader.content"])
 class AddExpenseFragmentTest {
 
     @get:Rule
@@ -69,6 +72,7 @@ class AddExpenseFragmentTest {
 
         val fragmentScenario =
             launchFragmentInContainer<AddExpenseFragment>(initialState = Lifecycle.State.CREATED)
+
         val navController = TestNavHostController(
             ApplicationProvider.getApplicationContext()
         )
@@ -85,7 +89,7 @@ class AddExpenseFragmentTest {
         //then:
         fragmentScenario.onFragment { fragment ->
             fragment.parentFragmentManager.setFragmentResultListener(
-                "FILTERED_KEY", fragment
+                "EXPENSES", fragment
             ) { _, b ->
                 assertEquals(expected, b.get("EXPENSE_KEY"))
             }

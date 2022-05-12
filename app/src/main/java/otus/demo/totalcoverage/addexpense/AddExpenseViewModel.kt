@@ -48,7 +48,7 @@ class AddExpenseViewModelModelFactory @Inject constructor(
     private val addExpensesInteractor: AddExpensesInteractor
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AddExpenseViewModel::class.java))
             return AddExpenseViewModel(addExpensesInteractor) as T
         else throw IllegalArgumentException()
