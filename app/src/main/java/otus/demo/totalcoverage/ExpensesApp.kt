@@ -4,7 +4,7 @@ import android.app.Application
 import otus.demo.totalcoverage.di.AppComponent
 import otus.demo.totalcoverage.di.DaggerAppComponent
 
-class ExpensesApp : Application() {
+open class ExpensesApp : Application() {
 
     private lateinit var appComponent: AppComponent
 
@@ -13,7 +13,11 @@ class ExpensesApp : Application() {
         appComponent = DaggerAppComponent.create()
     }
 
-    fun getAppComponent(): AppComponent {
+    open fun getAppComponent(): AppComponent {
         return appComponent
+    }
+
+    protected open fun initAnalytics(){
+        //some analytics initialization
     }
 }

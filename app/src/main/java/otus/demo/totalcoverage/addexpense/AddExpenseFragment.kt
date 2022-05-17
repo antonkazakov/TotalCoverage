@@ -51,7 +51,7 @@ class AddExpenseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView = view.findViewById(R.id.category_recycler)
         nameInput = view.findViewById(R.id.title_edittext)
         amountInput = view.findViewById(R.id.amount_edittext)
         commentInput = view.findViewById(R.id.comment_edittext)

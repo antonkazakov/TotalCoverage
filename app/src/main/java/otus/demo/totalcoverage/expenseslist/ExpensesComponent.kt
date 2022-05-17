@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import otus.demo.totalcoverage.di.AppComponent
 import otus.demo.totalcoverage.di.FeatureScope
 import javax.inject.Named
+import javax.inject.Qualifier
 
 @FeatureScope
 @Component(
@@ -33,6 +34,7 @@ interface ExpensesModule {
 
     companion object {
 
+        @IO
         @Provides
         fun providesIoDispatcher(): CoroutineDispatcher {
             return Dispatchers.IO
@@ -45,3 +47,6 @@ interface ExpensesModule {
     @Binds
     fun bindFactory(expensesViewModelFactory: ExpensesViewModelFactory): ViewModelProvider.Factory
 }
+
+@Qualifier
+annotation class IO

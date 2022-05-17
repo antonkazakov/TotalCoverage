@@ -16,11 +16,11 @@ import javax.inject.Inject
 
 @NeedsTesting
 @Open
-class ExpensesViewModel @Inject constructor(
+class ExpensesViewModel constructor(
     private val filtersInteractor: FiltersInteractor,
     private val expensesRepository: ExpensesRepository,
     private val expensesMapper: ExpensesMapper,
-    private val ioDispatcher: CoroutineDispatcher,
+    @IO private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val _stateFlow: MutableStateFlow<Result> = MutableStateFlow(Empty)
@@ -72,7 +72,7 @@ class ExpensesViewModelFactory @Inject constructor(
     private val filtersInteractor: FiltersInteractor,
     private val expensesRepository: ExpensesRepositoryImpl,
     private val expensesMapper: ExpensesMapper,
-    private val ioCoroutineDispatcher: CoroutineDispatcher,
+    @IO private val ioCoroutineDispatcher: CoroutineDispatcher
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
