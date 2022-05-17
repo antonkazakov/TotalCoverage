@@ -12,5 +12,5 @@ data class Expense(
 ) : Serializable
 
 enum class Category {
-    FOOD, HEALTH, PAYMENTS, TRANSPORT, BARS, TRAVEL, SPORT
+    FOOD, HEALTH, TRANSPORT, BARS, TRAVEL
 }

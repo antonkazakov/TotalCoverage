@@ -1,11 +1,8 @@
 package otus.demo.totalcoverage.expenseslist
 
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
-import org.junit.Before
-import org.junit.BeforeClass
+import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.Mockito
 import org.mockito.kotlin.*
 import otus.demo.totalcoverage.baseexpenses.ExpensesService
 import otus.demo.totalcoverage.testutils.ExpensesFactory
@@ -17,11 +14,9 @@ class ExpensesRepositoryImplTest {
 
     private val repository = ExpensesRepositoryImpl(expensesService, expensesMapper)
 
-    //arrange act assert
-    //given when then
     @Test
     fun `should return mapped expenses`() {
-        runBlocking {
+        runTest {
             whenever(expensesService.getExpenses()).thenReturn(ExpensesFactory.getExpenseResponses())
             whenever(expensesMapper.map(any())).thenReturn(ExpensesFactory.getExpense())
             val expected = listOf(ExpensesFactory.getExpense(), ExpensesFactory.getExpense())

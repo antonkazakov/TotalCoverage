@@ -12,12 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import org.jetbrains.annotations.TestOnly
-import otus.demo.totalcoverage.ContainerActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import otus.demo.totalcoverage.ExpensesApp
 import otus.demo.totalcoverage.R
 import otus.demo.totalcoverage.baseexpenses.Category
-import otus.demo.totalcoverage.baseexpenses.Expense
 import otus.demo.totalcoverage.expenseslist.EXPENSE_KEY
 import otus.demo.totalcoverage.expenseslist.KEY
 import javax.inject.Inject
@@ -33,6 +32,8 @@ class AddExpenseFragment : Fragment() {
     private lateinit var amountInput: EditText
     private lateinit var commentInput: EditText
     private lateinit var submitButton: Button
+    private lateinit var recyclerView: RecyclerView
+    private var category:Category = Category.FOOD
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,21 +51,27 @@ class AddExpenseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        recyclerView = view.findViewById(R.id.recyclerView)
         nameInput = view.findViewById(R.id.title_edittext)
         amountInput = view.findViewById(R.id.amount_edittext)
         commentInput = view.findViewById(R.id.comment_edittext)
         submitButton = view.findViewById(R.id.submit_button)
 
+        recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        recyclerView.adapter = CategoriesAdapter(){
+            category = it
+        }
+
         submitButton.setOnClickListener {
             addExpenseViewModel.addExpense(
                 nameInput.text.toString(),
                 amountInput.text.toString(),
-                Category.BARS,
+                category,
                 commentInput.text.toString()
             )
         }
         addExpenseViewModel =
-            ViewModelProvider(this, viewModelFactory).get(AddExpenseViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory)[AddExpenseViewModel::class.java]
 
     }
 

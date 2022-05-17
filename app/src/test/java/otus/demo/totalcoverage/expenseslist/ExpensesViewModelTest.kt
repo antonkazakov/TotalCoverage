@@ -2,10 +2,11 @@ package otus.demo.totalcoverage.expenseslist
 
 import app.cash.turbine.test
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.*
+import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -54,7 +55,7 @@ class ExpensesViewModelTest {
 
             expensesViewModel.getExpenses()
             expensesViewModel.stateFlow.test {
-                Assert.assertEquals(Success(listOf(expected)), awaitItem())
+                Assert.assertEquals(Success(listOf(expected)), expectMostRecentItem())
             }
         }
     }
@@ -69,7 +70,7 @@ class ExpensesViewModelTest {
 
             expensesViewModel.getExpenses()
             expensesViewModel.stateFlow.test {
-                Assert.assertEquals(Empty, awaitItem())
+                Assert.assertEquals(Empty, expectMostRecentItem())
             }
         }
     }
@@ -83,6 +84,7 @@ class ExpensesViewModelTest {
 
             expensesViewModel.getExpenses()
             expensesViewModel.stateFlow.test {
+                //проверить почему не работает при смене тест диспатчера
                 Assert.assertEquals(Error(expectedException), awaitItem())
             }
         }

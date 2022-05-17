@@ -3,6 +3,7 @@
     <string name="no_expenses">No expenses :)</string>
     <string name="asc_text">Сначала крупные покупки</string>
     <string name="desc_text">Сначала мелкие покупки</string>
+    <string name="filters_text">Выбрать категорию</string>
     <string name="date_asc_text">Сначала старые покупки</string>
     <string name="date_desc_text">Сначала новые покупки</string>
     <string name="sumbit_filters_text">Применить</string>

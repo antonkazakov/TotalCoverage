@@ -9,8 +9,10 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -95,6 +97,7 @@ class ExpensesFragmentTest {
 
             //then:
             verify(adapterMock).addItems(expected)
+            Espresso.onView(withId(R.id.empty_text)).check(matches(Matchers.not(ViewMatchers.isDisplayed())))
         }
     }
 

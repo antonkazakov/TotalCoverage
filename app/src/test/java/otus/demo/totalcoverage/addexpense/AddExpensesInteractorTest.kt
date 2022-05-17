@@ -27,6 +27,5 @@ class AddExpensesInteractorTest {
             .addExpense("dummy_title", 100L, Category.BARS, "dummy_comment")
             .test()
             .assertValue(expected)
-            .assertComplete()
     }
 }

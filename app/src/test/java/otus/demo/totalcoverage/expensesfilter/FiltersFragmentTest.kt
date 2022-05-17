@@ -7,22 +7,20 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
-import otus.demo.totalcoverage.ContainerActivity
 import otus.demo.totalcoverage.R
 import otus.demo.totalcoverage.baseexpenses.Category
+import otus.demo.totalcoverage.expensesfilter.Filter
+import otus.demo.totalcoverage.expensesfilter.FiltersFragment
 
-@RunWith(RobolectricTestRunner::class)
-@Config(instrumentedPackages = ["androidx.loader.content"])
+@RunWith(AndroidJUnit4::class)
 class FiltersFragmentTest {
 
     @Test
-    fun `should send fragment result with chosen filters and navigate up`() {
+    fun `23`() {
         //given:
         val expected = Filter(listOf(Category.BARS), (0L..2000L))
         val navController = TestNavHostController(

@@ -16,7 +16,8 @@ import javax.inject.Inject
 
 @NeedsTesting
 @Open
-class AddExpenseViewModel @Inject constructor(
+class AddExpenseViewModel
+@Inject constructor(
     private val addExpensesInteractor: AddExpensesInteractor,
 ) : ViewModel() {
 
