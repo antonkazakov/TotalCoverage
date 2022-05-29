@@ -2,7 +2,6 @@ package otus.demo.totalcoverage.addexpense
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import io.reactivex.Single
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -23,10 +22,10 @@ class AddExpenseViewModelTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val addExpensesInteractor: AddExpensesInteractor = mock()
+    private val addExpensesInteractor: otus.demo.totalcoverage.addexpenses.AddExpensesInteractor = mock()
 
     private val addExpenseViewModel =
-        AddExpenseViewModel(addExpensesInteractor)
+        otus.demo.totalcoverage.addexpenses.AddExpenseViewModel(addExpensesInteractor)
 
     @Test
     fun `should send Success event`() {
@@ -37,7 +36,7 @@ class AddExpenseViewModelTest {
             .addExpense("dummy_title", "100", Category.BARS, "dummy_comment")
 
         val actual = addExpenseViewModel.liveData.value
-        assertEquals(Success(ExpensesFactory.getExpense()), actual)
+        assertEquals(otus.demo.totalcoverage.addexpenses.Success(ExpensesFactory.getExpense()), actual)
     }
 
     @Test
@@ -49,6 +48,6 @@ class AddExpenseViewModelTest {
             .addExpense("dummy_title", "100", Category.BARS, "dummy_comment")
 
         val actual = addExpenseViewModel.liveData.value
-        assertEquals(Error(expectedException), actual)
+        assertEquals(otus.demo.totalcoverage.addexpenses.Error(expectedException), actual)
     }
 }

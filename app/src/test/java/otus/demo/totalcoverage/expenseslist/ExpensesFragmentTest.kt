@@ -7,27 +7,17 @@ import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
 import org.hamcrest.Matchers
-import org.junit.After
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.matches
 import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -39,33 +29,32 @@ import otus.demo.totalcoverage.baseexpenses.Category
 import otus.demo.totalcoverage.expensesfilter.Filter
 import otus.demo.totalcoverage.testutils.ExpensesFactory
 import java.lang.RuntimeException
-import java.util.regex.Pattern.matches
 
 @RunWith(AndroidJUnit4::class)
 @Config(instrumentedPackages = ["androidx.loader.content"])
 class ExpensesFragmentTest {
 
-    private val expensesViewModel: ExpensesViewModel = mock()
+    private val expensesViewModel: otus.demo.totalcoverage.feature_expenseslist.ExpensesViewModel = mock()
 
     @Test
     fun `should show Toast with message when Error emited`() {
         runTest {
             //given:
-            val flow = MutableStateFlow<Result>(Empty)
+            val flow = MutableStateFlow<otus.demo.totalcoverage.feature_expenseslist.Result>(otus.demo.totalcoverage.feature_expenseslist.Empty)
             whenever(expensesViewModel.stateFlow).thenReturn(flow)
 
-            val factoryMock = mock<ExpensesViewModelFactory>()
-            whenever(factoryMock.create<ExpensesViewModel>(any())).thenReturn(expensesViewModel)
+            val factoryMock = mock<otus.demo.totalcoverage.feature_expenseslist.ExpensesViewModelFactory>()
+            whenever(factoryMock.create<otus.demo.totalcoverage.feature_expenseslist.ExpensesViewModel>(any())).thenReturn(expensesViewModel)
 
             val fragmentScenario =
-                launchFragmentInContainer<ExpensesFragment>(initialState = Lifecycle.State.CREATED)
+                launchFragmentInContainer<otus.demo.totalcoverage.feature_expenseslist.ExpensesFragment>(initialState = Lifecycle.State.CREATED)
             fragmentScenario.onFragment { fragment ->
                 fragment.viewModelFactory = factoryMock
                 fragmentScenario.moveToState(Lifecycle.State.STARTED)
             }
 
             //when:
-            flow.emit(Error(RuntimeException("Some Error")))
+            flow.emit(otus.demo.totalcoverage.feature_expenseslist.Error(RuntimeException("Some Error")))
 
             //then:
             assertEquals("Some Error", ShadowToast.getTextOfLatestToast())
@@ -76,16 +65,16 @@ class ExpensesFragmentTest {
     fun `should notify adapter when Success emited`() {
         runTest {
             //given:
-            val adapterMock = mock<ExpensesAdapter>()
+            val adapterMock = mock<otus.demo.totalcoverage.feature_expenseslist.ExpensesAdapter>()
             val expected = ExpensesFactory.getExpenses()
-            val flow = MutableStateFlow<Result>(Empty)
+            val flow = MutableStateFlow<otus.demo.totalcoverage.feature_expenseslist.Result>(otus.demo.totalcoverage.feature_expenseslist.Empty)
             whenever(expensesViewModel.stateFlow).thenReturn(flow)
 
-            val factoryMock = mock<ExpensesViewModelFactory>()
-            whenever(factoryMock.create<ExpensesViewModel>(any())).thenReturn(expensesViewModel)
+            val factoryMock = mock<otus.demo.totalcoverage.feature_expenseslist.ExpensesViewModelFactory>()
+            whenever(factoryMock.create<otus.demo.totalcoverage.feature_expenseslist.ExpensesViewModel>(any())).thenReturn(expensesViewModel)
 
             val fragmentScenario =
-                launchFragmentInContainer<ExpensesFragment>(initialState = Lifecycle.State.CREATED)
+                launchFragmentInContainer<otus.demo.totalcoverage.feature_expenseslist.ExpensesFragment>(initialState = Lifecycle.State.CREATED)
             fragmentScenario.onFragment { fragment ->
                 fragment.adapter = adapterMock
                 fragment.viewModelFactory = factoryMock
@@ -93,7 +82,7 @@ class ExpensesFragmentTest {
             }
 
             //when:
-            flow.emit(Success(expected))
+            flow.emit(otus.demo.totalcoverage.feature_expenseslist.Success(expected))
 
             //then:
             verify(adapterMock).addItems(expected)
@@ -105,16 +94,16 @@ class ExpensesFragmentTest {
     fun `should show empty text when Empty emited`() {
         runTest {
             //given:
-            val adapterMock = mock<ExpensesAdapter>()
+            val adapterMock = mock<otus.demo.totalcoverage.feature_expenseslist.ExpensesAdapter>()
 
-            val flow = MutableStateFlow<Result>(Empty)
+            val flow = MutableStateFlow<otus.demo.totalcoverage.feature_expenseslist.Result>(otus.demo.totalcoverage.feature_expenseslist.Empty)
             whenever(expensesViewModel.stateFlow).thenReturn(flow)
 
-            val factoryMock = mock<ExpensesViewModelFactory>()
-            whenever(factoryMock.create<ExpensesViewModel>(any())).thenReturn(expensesViewModel)
+            val factoryMock = mock<otus.demo.totalcoverage.feature_expenseslist.ExpensesViewModelFactory>()
+            whenever(factoryMock.create<otus.demo.totalcoverage.feature_expenseslist.ExpensesViewModel>(any())).thenReturn(expensesViewModel)
 
             val fragmentScenario =
-                launchFragmentInContainer<ExpensesFragment>(initialState = Lifecycle.State.CREATED)
+                launchFragmentInContainer<otus.demo.totalcoverage.feature_expenseslist.ExpensesFragment>(initialState = Lifecycle.State.CREATED)
             fragmentScenario.onFragment { fragment ->
                 fragment.adapter = adapterMock
                 fragment.viewModelFactory = factoryMock
@@ -122,7 +111,7 @@ class ExpensesFragmentTest {
             }
 
             //when:
-            flow.emit(Empty)
+            flow.emit(otus.demo.totalcoverage.feature_expenseslist.Empty)
 
             //then:
             Espresso.onView(ViewMatchers.withId(R.id.empty_text))
@@ -133,7 +122,7 @@ class ExpensesFragmentTest {
     @Test
     fun `should navigate to add expenses fragment when add button clicked`() {
         val fragmentScenario =
-            launchFragmentInContainer<ExpensesFragment>()
+            launchFragmentInContainer<otus.demo.totalcoverage.feature_expenseslist.ExpensesFragment>()
         val navController = TestNavHostController(
             ApplicationProvider.getApplicationContext()
         )
@@ -158,7 +147,7 @@ class ExpensesFragmentTest {
     fun `should navigate to  filters fragment when filters menu button clicked`() {
         //given:
         val fragmentScenario =
-            launchFragmentInContainer<ExpensesFragment>()
+            launchFragmentInContainer<otus.demo.totalcoverage.feature_expenseslist.ExpensesFragment>()
         val navController = TestNavHostController(
             ApplicationProvider.getApplicationContext()
         )
@@ -184,12 +173,12 @@ class ExpensesFragmentTest {
     @Test
     fun `should add call addItem when result with EXPENSES key received`() {
         //given:
-        val adapterMock = mock<ExpensesAdapter>()
+        val adapterMock = mock<otus.demo.totalcoverage.feature_expenseslist.ExpensesAdapter>()
 
         val expected = ExpensesFactory.getExpense()
 
         val fragmentScenario =
-            launchFragmentInContainer<ExpensesFragment>()
+            launchFragmentInContainer<otus.demo.totalcoverage.feature_expenseslist.ExpensesFragment>()
 
         fragmentScenario.onFragment { fragment ->
             fragment.adapter = adapterMock
@@ -211,14 +200,14 @@ class ExpensesFragmentTest {
     @Test
     fun `should add call addItem when result with FILTERS key received`() {
         //given:
-        val adapterMock = mock<ExpensesAdapter>()
+        val adapterMock = mock<otus.demo.totalcoverage.feature_expenseslist.ExpensesAdapter>()
         val expected = Filter(listOf(Category.BARS, Category.FOOD))
 
-        val factoryMock = mock<ExpensesViewModelFactory>()
-        whenever(factoryMock.create<ExpensesViewModel>(any())).thenReturn(expensesViewModel)
+        val factoryMock = mock<otus.demo.totalcoverage.feature_expenseslist.ExpensesViewModelFactory>()
+        whenever(factoryMock.create<otus.demo.totalcoverage.feature_expenseslist.ExpensesViewModel>(any())).thenReturn(expensesViewModel)
 
         val fragmentScenario =
-            launchFragmentInContainer<ExpensesFragment>(initialState = Lifecycle.State.CREATED)
+            launchFragmentInContainer<otus.demo.totalcoverage.feature_expenseslist.ExpensesFragment>(initialState = Lifecycle.State.CREATED)
         fragmentScenario.onFragment { fragment ->
             fragment.adapter = adapterMock
             fragment.viewModelFactory = factoryMock

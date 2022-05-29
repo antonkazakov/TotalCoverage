@@ -6,16 +6,15 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import otus.demo.totalcoverage.baseexpenses.Category
-import otus.demo.totalcoverage.baseexpenses.ExpensesService
-import otus.demo.totalcoverage.expenseslist.ExpensesMapper
 import otus.demo.totalcoverage.testutils.ExpensesFactory
 
 class AddExpensesInteractorTest {
 
-    private val expensesService: ExpensesService = mock()
-    private val expensesMapper: ExpensesMapper = mock()
+    private val expensesService: otus.demo.totalcoverage.baseexpenses.ExpensesService = mock()
+    private val expensesMapper: otus.demo.totalcoverage.baseexpenses.ExpensesMapper = mock()
 
-    private val addExpensesInteractor = AddExpensesInteractor(expensesService, expensesMapper)
+    private val addExpensesInteractor =
+        otus.demo.totalcoverage.addexpenses.AddExpensesInteractor(expensesService, expensesMapper)
 
     @Test
     fun `should emit Expense and complete`() {

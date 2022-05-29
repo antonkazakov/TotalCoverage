@@ -12,6 +12,22 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/modules" />
+            <option value="$PROJECT_DIR$/modules/base" />
+            <option value="$PROJECT_DIR$/modules/base/base-ui" />
+            <option value="$PROJECT_DIR$/modules/base/base_expenses" />
+            <option value="$PROJECT_DIR$/modules/celebrity" />
+            <option value="$PROJECT_DIR$/modules/celebrity/core_api" />
+            <option value="$PROJECT_DIR$/modules/celebrity/core_factory" />
+            <option value="$PROJECT_DIR$/modules/celebrity/core_impl" />
+            <option value="$PROJECT_DIR$/modules/features" />
+            <option value="$PROJECT_DIR$/modules/features/feature-addexpenses" />
+            <option value="$PROJECT_DIR$/modules/features/feature-addexpenses-api" />
+            <option value="$PROJECT_DIR$/modules/features/feature-container" />
+            <option value="$PROJECT_DIR$/modules/features/feature-expenseslist" />
+            <option value="$PROJECT_DIR$/modules/features/feature-expenseslist-api" />
+            <option value="$PROJECT_DIR$/modules/features/feature-filters" />
+            <option value="$PROJECT_DIR$/modules/features/feature-filters-api" />
           </set>
         </option>
       </GradleProjectSettings>

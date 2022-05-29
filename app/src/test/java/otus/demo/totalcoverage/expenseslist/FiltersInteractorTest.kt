@@ -7,23 +7,22 @@ import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import otus.demo.totalcoverage.baseexpenses.Category
-import otus.demo.totalcoverage.baseexpenses.ExpenseResponse
-import otus.demo.totalcoverage.baseexpenses.ExpensesService
 import otus.demo.totalcoverage.expensesfilter.Filter
 import otus.demo.totalcoverage.expensesfilter.Sort
 
 class FiltersInteractorTest {
 
-    private val expensesService: ExpensesService = mock()
-    private val filtersInteractor = FiltersInteractor(expensesService)
+    private val expensesService: otus.demo.totalcoverage.baseexpenses.ExpensesService = mock()
+    private val filtersInteractor =
+        otus.demo.totalcoverage.feature_expenseslist.FiltersInteractor(expensesService)
 
-    private val firstResponse = ExpenseResponse(
+    private val firstResponse = otus.demo.totalcoverage.baseexpenses.ExpenseResponse(
         1, "first", Category.BARS, null, 1000L, 1624345281000L
     )
-    private val secondResponse = ExpenseResponse(
+    private val secondResponse = otus.demo.totalcoverage.baseexpenses.ExpenseResponse(
         2, "second", Category.BARS, null, 3000L, 1624345261000L
     )
-    private val thirdResponse = ExpenseResponse(
+    private val thirdResponse = otus.demo.totalcoverage.baseexpenses.ExpenseResponse(
         3, "third", Category.TRAVEL, null, 2000L, 1624345221000L
     )
 

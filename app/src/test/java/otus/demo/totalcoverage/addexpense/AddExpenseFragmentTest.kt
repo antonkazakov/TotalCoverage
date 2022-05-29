@@ -21,7 +21,6 @@ import org.robolectric.shadows.ShadowToast
 import otus.demo.totalcoverage.R
 import otus.demo.totalcoverage.baseexpenses.Category
 import otus.demo.totalcoverage.baseexpenses.Expense
-import otus.demo.totalcoverage.expenseslist.ExpensesFragment
 
 @RunWith(AndroidJUnit4::class)
 @Config(instrumentedPackages = ["androidx.loader.content"])
@@ -30,16 +29,16 @@ class AddExpenseFragmentTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val viewModel = mock<AddExpenseViewModel>()
+    private val viewModel = mock<otus.demo.totalcoverage.addexpenses.AddExpenseViewModel>()
 
     @Test
     fun `should call addExpense function when submit_button was clicked`() {
-        val factory: AddExpenseViewModelModelFactory = mock()
-        whenever(factory.create<AddExpenseViewModel>(any())).thenReturn(viewModel)
-        val liveData = MutableLiveData<AddExpenseResult>()
+        val factory: otus.demo.totalcoverage.addexpenses.AddExpenseViewModelModelFactory = mock()
+        whenever(factory.create<otus.demo.totalcoverage.addexpenses.AddExpenseViewModel>(any())).thenReturn(viewModel)
+        val liveData = MutableLiveData<otus.demo.totalcoverage.addexpenses.AddExpenseResult>()
         whenever(viewModel.liveData).thenReturn(liveData)
         val fragmentScenario =
-            launchFragmentInContainer<AddExpenseFragment>(initialState = Lifecycle.State.CREATED)
+            launchFragmentInContainer<otus.demo.totalcoverage.addexpenses.AddExpenseFragment>(initialState = Lifecycle.State.CREATED)
 
         fragmentScenario.onFragment { fragment ->
             fragment.viewModelFactory = factory
@@ -64,14 +63,14 @@ class AddExpenseFragmentTest {
         //given:
         val expected = Expense(0L, "", Category.BARS, "", 1L, "")
 
-        val liveData = MutableLiveData<AddExpenseResult>()
+        val liveData = MutableLiveData<otus.demo.totalcoverage.addexpenses.AddExpenseResult>()
         whenever(viewModel.liveData).thenReturn(liveData)
 
-        val factoryMock = mock<AddExpenseViewModelModelFactory>()
-        whenever(factoryMock.create<AddExpenseViewModel>(any())).thenReturn(viewModel)
+        val factoryMock = mock<otus.demo.totalcoverage.addexpenses.AddExpenseViewModelModelFactory>()
+        whenever(factoryMock.create<otus.demo.totalcoverage.addexpenses.AddExpenseViewModel>(any())).thenReturn(viewModel)
 
         val fragmentScenario =
-            launchFragmentInContainer<AddExpenseFragment>(initialState = Lifecycle.State.CREATED)
+            launchFragmentInContainer<otus.demo.totalcoverage.addexpenses.AddExpenseFragment>(initialState = Lifecycle.State.CREATED)
 
         val navController = TestNavHostController(
             ApplicationProvider.getApplicationContext()
@@ -84,7 +83,7 @@ class AddExpenseFragmentTest {
         }
 
         //when:
-        liveData.value = Success(expected)
+        liveData.value = otus.demo.totalcoverage.addexpenses.Success(expected)
 
         //then:
         fragmentScenario.onFragment { fragment ->
@@ -105,14 +104,14 @@ class AddExpenseFragmentTest {
     @Test
     fun `should show Toast with message when Error event was emited`() {
         //given:
-        val liveData = MutableLiveData<AddExpenseResult>()
+        val liveData = MutableLiveData<otus.demo.totalcoverage.addexpenses.AddExpenseResult>()
         whenever(viewModel.liveData).thenReturn(liveData)
 
-        val factoryMock = mock<AddExpenseViewModelModelFactory>()
-        whenever(factoryMock.create<AddExpenseViewModel>(any())).thenReturn(viewModel)
+        val factoryMock = mock<otus.demo.totalcoverage.addexpenses.AddExpenseViewModelModelFactory>()
+        whenever(factoryMock.create<otus.demo.totalcoverage.addexpenses.AddExpenseViewModel>(any())).thenReturn(viewModel)
 
         val fragmentScenario =
-            launchFragmentInContainer<AddExpenseFragment>(initialState = Lifecycle.State.CREATED)
+            launchFragmentInContainer<otus.demo.totalcoverage.addexpenses.AddExpenseFragment>(initialState = Lifecycle.State.CREATED)
         val navController = TestNavHostController(
             ApplicationProvider.getApplicationContext()
         )
@@ -125,7 +124,7 @@ class AddExpenseFragmentTest {
         }
 
         //when:
-        liveData.value = Error(RuntimeException("Some error"))
+        liveData.value = otus.demo.totalcoverage.addexpenses.Error(RuntimeException("Some error"))
 
         //then 'show toast with expected message':
         assertEquals(

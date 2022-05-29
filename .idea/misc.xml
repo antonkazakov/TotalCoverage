@@ -3,12 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_container.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/layout/add_expenses_layout.xml" value="0.1956521739130435" />
         <entry key="app/src/main/res/layout/category_item.xml" value="0.17028985507246377" />
         <entry key="app/src/main/res/layout/expenses_item_layout.xml" value="0.17028985507246377" />
         <entry key="app/src/main/res/layout/filters_layout.xml" value="0.1" />
         <entry key="app/src/main/res/menu/dropdownmenu.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/menu/expenses_menu.xml" value="0.16822916666666668" />
+        <entry key="feature-addexpenses/src/main/res/layout/add_expenses_layout.xml" value="0.2966485507246377" />
+        <entry key="feature-container/src/main/res/layout/activity_container.xml" value="0.22735507246376813" />
+        <entry key="feature-expenseslist/src/main/res/layout/expenses_container_layout.xml" value="0.2115036231884058" />
+        <entry key="feature-expenseslist/src/main/res/layout/expenses_list_layout.xml" value="0.25364583333333335" />
+        <entry key="feature-expenseslist/src/main/res/menu/expenses_menu.xml" value="0.25364583333333335" />
+        <entry key="feature-filters/src/main/res/layout/filters_layout.xml" value="0.25364583333333335" />
+        <entry key="feature-filters/src/main/res/menu/dropdownmenu.xml" value="0.25364583333333335" />
       </map>
     </option>
   </component>

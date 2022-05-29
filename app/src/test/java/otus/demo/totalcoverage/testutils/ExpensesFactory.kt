@@ -19,8 +19,8 @@ object ExpensesFactory {
         )
     }
 
-    fun getExpenseResponse(): ExpenseResponse {
-        return ExpenseResponse(
+    fun getExpenseResponse(): otus.demo.totalcoverage.baseexpenses.ExpenseResponse {
+        return otus.demo.totalcoverage.baseexpenses.ExpenseResponse(
             1,
             "Some food",
             Category.FOOD,
@@ -30,9 +30,9 @@ object ExpensesFactory {
         )
     }
 
-    fun getExpenseResponses(): List<ExpenseResponse> {
+    fun getExpenseResponses(): List<otus.demo.totalcoverage.baseexpenses.ExpenseResponse> {
         return listOf(
-            ExpenseResponse(
+            otus.demo.totalcoverage.baseexpenses.ExpenseResponse(
                 1,
                 "Some food",
                 Category.FOOD,
@@ -40,7 +40,14 @@ object ExpensesFactory {
                 1200L,
                 1624345281000L
             ),
-            ExpenseResponse(1, "Some food", Category.BARS, "Some bar", 3000L, 1624345281000L),
+            otus.demo.totalcoverage.baseexpenses.ExpenseResponse(
+                1,
+                "Some food",
+                Category.BARS,
+                "Some bar",
+                3000L,
+                1624345281000L
+            ),
         )
     }
 }

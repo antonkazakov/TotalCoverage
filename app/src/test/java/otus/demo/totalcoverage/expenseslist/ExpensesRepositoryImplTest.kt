@@ -4,15 +4,17 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.*
-import otus.demo.totalcoverage.baseexpenses.ExpensesService
 import otus.demo.totalcoverage.testutils.ExpensesFactory
 
 class ExpensesRepositoryImplTest {
 
-    private val expensesService: ExpensesService = mock()
-    private val expensesMapper: ExpensesMapper = mock()
+    private val expensesService: otus.demo.totalcoverage.baseexpenses.ExpensesService = mock()
+    private val expensesMapper: otus.demo.totalcoverage.baseexpenses.ExpensesMapper = mock()
 
-    private val repository = ExpensesRepositoryImpl(expensesService, expensesMapper)
+    private val repository = otus.demo.totalcoverage.feature_expenseslist.ExpensesRepositoryImpl(
+        expensesService,
+        expensesMapper
+    )
 
     @Test
     fun `should return mapped expenses`() {

@@ -20,7 +20,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -40,6 +41,16 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation project(":modules:celebrity:core_factory")
+    implementation project(":modules:celebrity:core_api")
+    implementation project(":modules:features:feature-filters")
+    implementation project(":modules:features:feature-addexpenses")
+    implementation project(":modules:features:feature-expenseslist")
+    implementation project(":modules:features:feature-expenseslist-api")
+    implementation project(":modules:features:feature-addexpenses-api")
+    implementation project(":modules:features:feature-container")
+    implementation project(":modules:base:base_expenses")
+    implementation project(":modules:features:feature-filters-api")
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -71,7 +82,7 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1'
     testImplementation 'app.cash.turbine:turbine:0.8.0'
-
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
     androidTestImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -83,9 +94,9 @@ dependencies {
     androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1'
     androidTestImplementation 'app.cash.turbine:turbine:0.8.0'
     implementation 'androidx.test.espresso:espresso-idling-resource:3.4.0'
-    implementation 'com.google.dagger:dagger:2.41'
-    kaptAndroidTest 'com.google.dagger:dagger-compiler:2.41'
-    kapt 'com.google.dagger:dagger-compiler:2.41'
+    implementation 'com.google.dagger:dagger:2.42'
+    kaptAndroidTest 'com.google.dagger:dagger-compiler:2.42'
+    kapt 'com.google.dagger:dagger-compiler:2.42'
 }
 
 allOpen {

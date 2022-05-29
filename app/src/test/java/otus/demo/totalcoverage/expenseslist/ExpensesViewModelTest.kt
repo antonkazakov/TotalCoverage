@@ -2,7 +2,6 @@ package otus.demo.totalcoverage.expenseslist
 
 import app.cash.turbine.test
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -19,13 +18,13 @@ import kotlin.time.ExperimentalTime
 
 class ExpensesViewModelTest {
 
-    private val filtersInteractor: FiltersInteractor = mock()
-    private val expensesRepository: ExpensesRepository = mock()
-    private val expensesMapper: ExpensesMapper = mock()
+    private val filtersInteractor: otus.demo.totalcoverage.feature_expenseslist.FiltersInteractor = mock()
+    private val expensesRepository: otus.demo.totalcoverage.feature_expenseslist.ExpensesRepository = mock()
+    private val expensesMapper: otus.demo.totalcoverage.baseexpenses.ExpensesMapper = mock()
     private val testDispatcher = TestCoroutineDispatcher()
 
     private val expensesViewModel =
-        ExpensesViewModel(
+        otus.demo.totalcoverage.feature_expenseslist.ExpensesViewModel(
             filtersInteractor,
             expensesRepository,
             expensesMapper,
@@ -55,7 +54,12 @@ class ExpensesViewModelTest {
 
             expensesViewModel.getExpenses()
             expensesViewModel.stateFlow.test {
-                Assert.assertEquals(Success(listOf(expected)), expectMostRecentItem())
+                Assert.assertEquals(
+                    otus.demo.totalcoverage.feature_expenseslist.Success(
+                        listOf(
+                            expected
+                        )
+                    ), expectMostRecentItem())
             }
         }
     }
@@ -70,7 +74,7 @@ class ExpensesViewModelTest {
 
             expensesViewModel.getExpenses()
             expensesViewModel.stateFlow.test {
-                Assert.assertEquals(Empty, expectMostRecentItem())
+                Assert.assertEquals(otus.demo.totalcoverage.feature_expenseslist.Empty, expectMostRecentItem())
             }
         }
     }
@@ -85,7 +89,10 @@ class ExpensesViewModelTest {
             expensesViewModel.getExpenses()
             expensesViewModel.stateFlow.test {
                 //проверить почему не работает при смене тест диспатчера
-                Assert.assertEquals(Error(expectedException), awaitItem())
+                Assert.assertEquals(
+                    otus.demo.totalcoverage.feature_expenseslist.Error(
+                        expectedException
+                    ), awaitItem())
             }
         }
     }

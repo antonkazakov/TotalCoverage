@@ -1,23 +1,24 @@
 package otus.demo.totalcoverage
 
 import android.app.Application
-import otus.demo.totalcoverage.di.AppComponent
-import otus.demo.totalcoverage.di.DaggerAppComponent
+import otus.demo.totalcoverage.coreapi.AggregatingProvider
+import otus.demo.totalcoverage.coreapi.ProvidersHolder
+import otus.demo.totalcoverage.corefactory.CelebrityFactory
 
-open class ExpensesApp : Application() {
+open class ExpensesApp : Application(), ProvidersHolder {
 
-    private lateinit var appComponent: AppComponent
+    companion object {
+
+        private var aggregatingProvider: AggregatingProvider? = null
+    }
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent.create()
+        getAggregatingProvider()
     }
 
-    open fun getAppComponent(): AppComponent {
-        return appComponent
-    }
-
-    protected open fun initAnalytics(){
-        //some analytics initialization
+    override fun getAggregatingProvider(): AggregatingProvider {
+        return aggregatingProvider ?: DaggerAggregatingComponent.factory()
+            .create(CelebrityFactory.createCoreProvider(this)).also { aggregatingProvider = it }
     }
 }

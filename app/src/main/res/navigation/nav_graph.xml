@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/expensesListFragment"
-        android:name="otus.demo.totalcoverage.expenseslist.ExpensesFragment"
+        android:name="otus.demo.totalcoverage.feature_expenseslist.ExpensesFragment"
         android:label="ExpensesListFragment">
         <action
             android:id="@+id/action_expensesListFragment_to_addExpenseFragment"
@@ -27,6 +27,6 @@
         android:label="FiltersFragment" />
     <fragment
         android:id="@+id/addExpenseFragment"
-        android:name="otus.demo.totalcoverage.addexpense.AddExpenseFragment"
+        android:name="otus.demo.totalcoverage.addexpenses.AddExpenseFragment"
         android:label="AddExpenseFragment" />
 </navigation>
