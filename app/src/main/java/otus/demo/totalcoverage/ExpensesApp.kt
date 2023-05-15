@@ -17,7 +17,7 @@ open class ExpensesApp : Application() {
         return appComponent
     }
 
-    protected open fun initAnalytics(){
+    protected open fun initAnalytics() {
         //some analytics initialization
     }
 }

@@ -3,6 +3,7 @@ package otus.demo.totalcoverage.expenseslist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.test.espresso.idling.CountingIdlingResource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,6 +13,7 @@ import otus.demo.totalcoverage.Open
 import otus.demo.totalcoverage.baseexpenses.Expense
 import otus.demo.totalcoverage.expensesfilter.Filter
 import otus.demo.totalcoverage.utils.NeedsTesting
+import java.util.*
 import javax.inject.Inject
 
 @NeedsTesting
@@ -21,6 +23,7 @@ class ExpensesViewModel constructor(
     private val expensesRepository: ExpensesRepository,
     private val expensesMapper: ExpensesMapper,
     @IO private val ioDispatcher: CoroutineDispatcher,
+    private val idlingResource: Optional<CountingIdlingResource>
 ) : ViewModel() {
 
     private val _stateFlow: MutableStateFlow<Result> = MutableStateFlow(Empty)
@@ -29,15 +32,18 @@ class ExpensesViewModel constructor(
     fun getExpenses() {
         viewModelScope.launch {
             try {
+                idlingResource.ifPresent { it.increment() }
                 val expenses = withContext(ioDispatcher) {
                     expensesRepository.getExpenses()
                 }
+                idlingResource.ifPresent { it.decrement() }
                 if (expenses.isNotEmpty()) {
                     _stateFlow.emit(Success(expenses))
                 } else {
                     _stateFlow.emit(Empty)
                 }
             } catch (ex: Exception) {
+                idlingResource.ifPresent { it.decrement() }
                 when (ex) {
                     is RuntimeException -> _stateFlow.emit(Error(ex))
                 }
@@ -48,12 +54,15 @@ class ExpensesViewModel constructor(
     fun getFilteredExpenses(filter: Filter) {
         viewModelScope.launch {
             try {
+                idlingResource.ifPresent { it.increment() }
                 val expenses = withContext(ioDispatcher) {
                     filtersInteractor.getFilteredExpenses(filter)
                         .map { expensesMapper.map(it) }
                 }
+                idlingResource.ifPresent { it.decrement() }
                 _stateFlow.emit(Success(expenses))
             } catch (ex: Exception) {
+                idlingResource.ifPresent { it.decrement() }
                 when (ex) {
                     is RuntimeException -> _stateFlow.emit(Error(ex))
                 }
@@ -72,7 +81,8 @@ class ExpensesViewModelFactory @Inject constructor(
     private val filtersInteractor: FiltersInteractor,
     private val expensesRepository: ExpensesRepositoryImpl,
     private val expensesMapper: ExpensesMapper,
-    @IO private val ioCoroutineDispatcher: CoroutineDispatcher
+    @IO private val ioCoroutineDispatcher: CoroutineDispatcher,
+    private val idlingResource: Optional<CountingIdlingResource>
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -81,7 +91,8 @@ class ExpensesViewModelFactory @Inject constructor(
                 filtersInteractor,
                 expensesRepository,
                 expensesMapper,
-                ioCoroutineDispatcher
+                ioCoroutineDispatcher,
+                idlingResource
             ) as T
         else throw IllegalArgumentException()
     }

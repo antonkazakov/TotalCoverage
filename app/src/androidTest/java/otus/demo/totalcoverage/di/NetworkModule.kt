@@ -10,32 +10,23 @@ import otus.demo.totalcoverage.baseexpenses.FakeExpensesServiceImpl
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 import javax.inject.Singleton
 
 private const val URL = "http://localhost"
 
 @Singleton
-@Component(modules = [NetworkModule::class, IdlingResourceModule::class])
-interface AppComponent {
+@Component(modules = [TestNetworkModule::class, TestIdlingResourceModule::class])
+interface TestAppComponent : AppComponent {
 
-    fun provideExpensesService(): ExpensesService
-
-    fun provideIdlingResource(): Optional<CountingIdlingResource>
+    fun inject(userFlowTest: UserFlowSimple)
 }
 
 @Module
-object NetworkModule {
-
-//    @Provides
-//    @Singleton
-//    fun provideExpensesNetworkService(retrofit: Retrofit): ExpensesService {
-//        return retrofit.create(ExpensesService::class.java)
-//    }
+object TestNetworkModule {
 
     @Provides
     @Singleton
-    fun provideFakeExpensesNetworkService(): ExpensesService {
+    fun provideExpensesNetworkService(): ExpensesService {
         return FakeExpensesServiceImpl()
     }
 
@@ -51,7 +42,16 @@ object NetworkModule {
 }
 
 @Module
-interface IdlingResourceModule {
+interface TestIdlingResourceModule {
+
+    companion object {
+
+        @Provides
+        @Singleton
+        fun provideIdlingResource(): CountingIdlingResource {
+            return CountingIdlingResource("test_resource")
+        }
+    }
 
     @BindsOptionalOf
     fun provideIdlingResource(): CountingIdlingResource

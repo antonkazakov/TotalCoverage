@@ -15,13 +15,15 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowToast
 import otus.demo.totalcoverage.R
 import otus.demo.totalcoverage.baseexpenses.Category
 import otus.demo.totalcoverage.baseexpenses.Expense
-import otus.demo.totalcoverage.expenseslist.ExpensesFragment
 
 @RunWith(AndroidJUnit4::class)
 @Config(instrumentedPackages = ["androidx.loader.content"])
