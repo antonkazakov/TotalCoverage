@@ -2,8 +2,9 @@ package otus.demo.totalcoverage.addexpense
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -16,8 +17,9 @@ import javax.inject.Inject
 
 @NeedsTesting
 @Open
-class AddExpenseViewModel
-@Inject constructor(
+@HiltViewModel
+class AddExpenseViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val addExpensesInteractor: AddExpensesInteractor,
 ) : ViewModel() {
 
@@ -41,18 +43,6 @@ class AddExpenseViewModel
     override fun onCleared() {
         super.onCleared()
         disposable?.dispose()
-    }
-}
-
-@Open
-class AddExpenseViewModelModelFactory @Inject constructor(
-    private val addExpensesInteractor: AddExpensesInteractor
-) : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(AddExpenseViewModel::class.java))
-            return AddExpenseViewModel(addExpensesInteractor) as T
-        else throw IllegalArgumentException()
     }
 }
 

@@ -10,36 +10,27 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import otus.demo.totalcoverage.ExpensesApp
+import dagger.hilt.android.AndroidEntryPoint
 import otus.demo.totalcoverage.R
 import otus.demo.totalcoverage.baseexpenses.Category
 import otus.demo.totalcoverage.expenseslist.EXPENSE_KEY
 import otus.demo.totalcoverage.expenseslist.KEY
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class AddExpenseFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private lateinit var addExpenseViewModel: AddExpenseViewModel
+    private val addExpenseViewModel: AddExpenseViewModel by viewModels()
 
     private lateinit var nameInput: EditText
     private lateinit var amountInput: EditText
     private lateinit var commentInput: EditText
     private lateinit var submitButton: Button
     private lateinit var recyclerView: RecyclerView
-    private var category:Category = Category.FOOD
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        AddExpensesComponent.getAddExpensesComponent((requireActivity().application as ExpensesApp).getAppComponent())
-            .inject(this)
-    }
+    private var category: Category = Category.FOOD
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,7 +49,7 @@ class AddExpenseFragment : Fragment() {
         submitButton = view.findViewById(R.id.submit_button)
 
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        recyclerView.adapter = CategoriesAdapter(){
+        recyclerView.adapter = CategoriesAdapter() {
             category = it
         }
 
@@ -70,9 +61,6 @@ class AddExpenseFragment : Fragment() {
                 commentInput.text.toString()
             )
         }
-        addExpenseViewModel =
-            ViewModelProvider(this, viewModelFactory)[AddExpenseViewModel::class.java]
-
     }
 
     override fun onStart() {
@@ -86,6 +74,7 @@ class AddExpenseFragment : Fragment() {
                     )
                     findNavController().navigateUp()
                 }
+
                 is Error -> {
                     Toast.makeText(activity, result.throwable?.message, Toast.LENGTH_LONG).show()
                 }

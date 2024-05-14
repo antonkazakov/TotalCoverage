@@ -1,9 +1,13 @@
 package otus.demo.totalcoverage.expenseslist
 
+import android.content.Context
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.test.espresso.idling.CountingIdlingResource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,17 +17,19 @@ import otus.demo.totalcoverage.Open
 import otus.demo.totalcoverage.baseexpenses.Expense
 import otus.demo.totalcoverage.expensesfilter.Filter
 import otus.demo.totalcoverage.utils.NeedsTesting
-import java.util.*
+import java.util.Optional
 import javax.inject.Inject
 
 @NeedsTesting
 @Open
-class ExpensesViewModel constructor(
+@HiltViewModel
+class ExpensesViewModel @Inject constructor(
     private val filtersInteractor: FiltersInteractor,
     private val expensesRepository: ExpensesRepository,
     private val expensesMapper: ExpensesMapper,
     @IO private val ioDispatcher: CoroutineDispatcher,
-    private val idlingResource: Optional<CountingIdlingResource>
+    private val idlingResource: Optional<CountingIdlingResource>,
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     private val _stateFlow: MutableStateFlow<Result> = MutableStateFlow(Empty)
@@ -75,25 +81,3 @@ sealed class Result
 data class Error(val throwable: Throwable?) : Result()
 object Empty : Result()
 data class Success(val value: List<Expense>) : Result()
-
-@Open
-class ExpensesViewModelFactory @Inject constructor(
-    private val filtersInteractor: FiltersInteractor,
-    private val expensesRepository: ExpensesRepositoryImpl,
-    private val expensesMapper: ExpensesMapper,
-    @IO private val ioCoroutineDispatcher: CoroutineDispatcher,
-    private val idlingResource: Optional<CountingIdlingResource>
-) : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ExpensesViewModel::class.java))
-            return ExpensesViewModel(
-                filtersInteractor,
-                expensesRepository,
-                expensesMapper,
-                ioCoroutineDispatcher,
-                idlingResource
-            ) as T
-        else throw IllegalArgumentException()
-    }
-}

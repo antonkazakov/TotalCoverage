@@ -4,22 +4,16 @@ import android.os.Bundle
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.VisibleForTesting
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import org.jetbrains.annotations.TestOnly
-import otus.demo.totalcoverage.ContainerActivity
-import otus.demo.totalcoverage.ExpensesApp
+import dagger.hilt.android.AndroidEntryPoint
 import otus.demo.totalcoverage.R
-import otus.demo.totalcoverage.addexpense.AddExpenseViewModel
 import otus.demo.totalcoverage.baseexpenses.Expense
 import otus.demo.totalcoverage.expensesfilter.FILTERS_KEY
 import otus.demo.totalcoverage.expensesfilter.Filter
@@ -29,15 +23,13 @@ const val KEY = "EXPENSES"
 const val FILTERED_KEY = "FILTERED_EXPENSES"
 const val EXPENSE_KEY = "EXPENSE_KEY"
 
+@AndroidEntryPoint
 class ExpensesFragment : Fragment() {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
     lateinit var adapter: ExpensesAdapter
 
-    private lateinit var expensesViewModel: ExpensesViewModel
+    private val expensesViewModel: ExpensesViewModel by viewModels()
 
     private lateinit var expensesRecycler: RecyclerView
     private lateinit var emptyText: TextView
@@ -45,8 +37,6 @@ class ExpensesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ExpensesComponent.getExpensesComponent((requireActivity().application as ExpensesApp).getAppComponent())
-            .inject(this)
         setHasOptionsMenu(true)
     }
 
@@ -70,8 +60,6 @@ class ExpensesFragment : Fragment() {
             expensesViewModel.getFilteredExpenses(filter)
         }
 
-        expensesViewModel =
-            ViewModelProvider(this, viewModelFactory).get(ExpensesViewModel::class.java)
         lifecycleScope.launchWhenStarted {
             expensesViewModel.stateFlow.collect { result ->
                 when (result) {
@@ -79,10 +67,12 @@ class ExpensesFragment : Fragment() {
                         emptyText.visibility = View.GONE
                         adapter.addItems(result.value)
                     }
+
                     is Error -> {
                         Toast.makeText(activity, result.throwable?.message, Toast.LENGTH_LONG)
                             .show()
                     }
+
                     Empty -> {
                         emptyText.visibility = View.VISIBLE
                     }

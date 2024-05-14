@@ -1,10 +1,10 @@
 package otus.demo.totalcoverage
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import otus.demo.totalcoverage.di.AppComponent
-import otus.demo.totalcoverage.di.DaggerAppComponent
+import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ContainerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

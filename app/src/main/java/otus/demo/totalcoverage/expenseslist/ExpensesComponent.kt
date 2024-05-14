@@ -2,34 +2,17 @@ package otus.demo.totalcoverage.expenseslist
 
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
-import dagger.Component
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import otus.demo.totalcoverage.di.AppComponent
-import otus.demo.totalcoverage.di.FeatureScope
-import javax.inject.Named
 import javax.inject.Qualifier
 
-@FeatureScope
-@Component(
-    modules = [ExpensesModule::class],
-    dependencies = [AppComponent::class]
-)
-interface ExpensesComponent {
-
-    companion object {
-
-        fun getExpensesComponent(appComponent: AppComponent): ExpensesComponent {
-            return DaggerExpensesComponent.builder().appComponent(appComponent).build()
-        }
-    }
-
-    fun inject(expensesFragment: ExpensesFragment)
-}
-
 @Module
+@InstallIn(ViewModelComponent::class)
 interface ExpensesModule {
 
     companion object {
@@ -43,9 +26,6 @@ interface ExpensesModule {
 
     @Binds
     fun bindRepository(expensesRepositoryImpl: ExpensesRepositoryImpl): ExpensesRepository
-
-    @Binds
-    fun bindFactory(expensesViewModelFactory: ExpensesViewModelFactory): ViewModelProvider.Factory
 }
 
 @Qualifier
