@@ -76,7 +76,6 @@ class UserFlowSimple {
             .perform(click())
 
 
-
         onView(withId(R.id.add_expense_fab))
             .perform(click())
         onView(withId(R.id.title_edittext))
