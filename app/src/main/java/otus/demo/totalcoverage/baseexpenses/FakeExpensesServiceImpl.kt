@@ -12,6 +12,7 @@ class FakeExpensesServiceImpl
     private val counter = AtomicLong(0)
 
     override suspend fun getExpenses(): List<ExpenseResponse> {
+        Thread.sleep(2000)
         return expenses
     }
 

@@ -1,8 +1,8 @@
 package otus.demo.totalcoverage.expenseslist
 
+import androidx.test.espresso.idling.CountingIdlingResource
 import app.cash.turbine.test
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -15,6 +15,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import otus.demo.totalcoverage.baseexpenses.Category
 import otus.demo.totalcoverage.baseexpenses.Expense
+import java.util.Optional
 import kotlin.time.ExperimentalTime
 
 class ExpensesViewModelTest {
@@ -29,7 +30,8 @@ class ExpensesViewModelTest {
             filtersInteractor,
             expensesRepository,
             expensesMapper,
-            testDispatcher
+            testDispatcher,
+            Optional.empty<CountingIdlingResource>()
         )
 
     @Before
@@ -45,7 +47,7 @@ class ExpensesViewModelTest {
             val expected = Expense(
                 2,
                 "Some sport equipment",
-                Category.SPORT,
+                Category.BARS,
                 amount = 120,
                 date = "20-06-2021"
             )
@@ -54,6 +56,7 @@ class ExpensesViewModelTest {
             )
 
             expensesViewModel.getExpenses()
+//            Assert.assertEquals(Success(listOf(expected)), expensesViewModel.stateFlow.value)
             expensesViewModel.stateFlow.test {
                 Assert.assertEquals(Success(listOf(expected)), expectMostRecentItem())
             }

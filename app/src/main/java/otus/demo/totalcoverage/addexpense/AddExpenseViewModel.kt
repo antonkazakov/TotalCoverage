@@ -18,13 +18,13 @@ import javax.inject.Inject
 @Open
 class AddExpenseViewModel
 @Inject constructor(
-    private val addExpensesInteractor: AddExpensesInteractor,
+    private val addExpensesInteractor: AddExpensesInteractor
 ) : ViewModel() {
 
     private val _liveData: MutableLiveData<AddExpenseResult> = MutableLiveData()
-    var liveData: LiveData<AddExpenseResult> = _liveData
+    val liveData: LiveData<AddExpenseResult> = _liveData
 
-    var disposable: Disposable? = null
+    private var disposable: Disposable? = null
 
     fun addExpense(
         title: String,

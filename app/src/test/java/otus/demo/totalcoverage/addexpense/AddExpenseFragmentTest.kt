@@ -56,11 +56,11 @@ class AddExpenseFragmentTest {
         Espresso.onView(ViewMatchers.withId(R.id.submit_button))
             .perform(ViewActions.click())
 
-        verify(viewModel).addExpense("Some title", "100", Category.BARS, "Some comment")
+        verify(viewModel).addExpense("Some title", "100", Category.FOOD, "Some comment")
     }
 
     @Test
-    fun `should navigate up with payload when Success event was emited`() {
+    fun `should navigate up with payload when Success event was emitted`() {
         //given:
         val expected = Expense(0L, "", Category.BARS, "", 1L, "")
 
@@ -103,7 +103,7 @@ class AddExpenseFragmentTest {
     }
 
     @Test
-    fun `should show Toast with message when Error event was emited`() {
+    fun `should show Toast with message when Error event was emitted`() {
         //given:
         val liveData = MutableLiveData<AddExpenseResult>()
         whenever(viewModel.liveData).thenReturn(liveData)

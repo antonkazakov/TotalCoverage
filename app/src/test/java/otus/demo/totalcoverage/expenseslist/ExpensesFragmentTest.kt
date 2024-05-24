@@ -7,27 +7,17 @@ import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
 import org.hamcrest.Matchers
-import org.junit.After
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.matches
 import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -38,8 +28,6 @@ import otus.demo.totalcoverage.R
 import otus.demo.totalcoverage.baseexpenses.Category
 import otus.demo.totalcoverage.expensesfilter.Filter
 import otus.demo.totalcoverage.testutils.ExpensesFactory
-import java.lang.RuntimeException
-import java.util.regex.Pattern.matches
 
 @RunWith(AndroidJUnit4::class)
 @Config(instrumentedPackages = ["androidx.loader.content"])
@@ -97,7 +85,8 @@ class ExpensesFragmentTest {
 
             //then:
             verify(adapterMock).addItems(expected)
-            Espresso.onView(withId(R.id.empty_text)).check(matches(Matchers.not(ViewMatchers.isDisplayed())))
+            Espresso.onView(withId(R.id.empty_text))
+                .check(matches(Matchers.not(ViewMatchers.isDisplayed())))
         }
     }
 
@@ -155,7 +144,7 @@ class ExpensesFragmentTest {
     }
 
     @Test
-    fun `should navigate to  filters fragment when filters menu button clicked`() {
+    fun `should navigate to filters fragment when filters menu button clicked`() {
         //given:
         val fragmentScenario =
             launchFragmentInContainer<ExpensesFragment>()

@@ -2,10 +2,12 @@ package otus.demo.totalcoverage.di
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
+import androidx.test.espresso.idling.CountingIdlingResource
 import androidx.test.espresso.matcher.RootMatchers.isPlatformPopup
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
@@ -13,15 +15,30 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.Matchers
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import otus.demo.totalcoverage.ContainerActivity
 import otus.demo.totalcoverage.R
+import java.util.Optional
+import javax.inject.Inject
 
 class UserFlowSimple {
 
     @get:Rule
     val activityRule = ActivityScenarioRule(ContainerActivity::class.java)
+
+    @Inject
+    lateinit var countingIdlingResource: Optional<CountingIdlingResource>
+
+    @Before
+    fun before() {
+        activityRule.scenario.onActivity {
+            ((it.application as TestApp).getAppComponent() as TestAppComponent).inject(this)
+        }
+        IdlingRegistry.getInstance().register(countingIdlingResource.get())
+    }
 
     @Test
     fun simpleFlow() {
@@ -80,11 +97,14 @@ class UserFlowSimple {
             .perform(click())
 
         onView(withId(R.id.filters)).perform(click())
-
         onView(withId(R.id.category_button)).perform(click())
 
+        onView(withText("Путешествия"))
+            .inRoot(isPlatformPopup())
+            .perform(click())
 
-        onView(withId(R.id.submit_filters_button)).perform(click())
+        onView(withId(R.id.submit_filters_button))
+            .perform(click())
 
         onView(withId(R.id.expenses_recycler))
             .check(
@@ -99,5 +119,13 @@ class UserFlowSimple {
                     )
                 )
             )
+        onView(withId(R.id.expenses_recycler)).check(
+            matches(size(1))
+        )
+    }
+
+    @After
+    fun after() {
+        IdlingRegistry.getInstance().unregister(countingIdlingResource.get())
     }
 }

@@ -72,7 +72,6 @@ class AddExpenseFragment : Fragment() {
         }
         addExpenseViewModel =
             ViewModelProvider(this, viewModelFactory)[AddExpenseViewModel::class.java]
-
     }
 
     override fun onStart() {
